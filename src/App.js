@@ -1,11 +1,13 @@
-import CineMain from "./components/CineMain"
+import PaginaFilmes from "./pages/PaginaFilmes"
 import GlobalStyle from "./GlobalStyles";
+import PaginaHorarios from "./pages/PaginaHorarios";
 
-export default function Tela(){
+export default function App(){
     return(
         <>
             <GlobalStyle/>
-            <CineMain/>
+            {/* <PaginaFilmes/> */}
+            <PaginaHorarios/>
         </>
     );
 }
