@@ -3,6 +3,7 @@ import Filme from "../componentes/Filme"
 import { useEffect } from "react"
 import axios from "axios"
 import react from "react"
+import { Link } from "react-router-dom"
 
 export default function AreaFilmes() {
 
@@ -14,9 +15,15 @@ export default function AreaFilmes() {
         promessa.catch((erro) => (console.log(erro.response.data)));
     }, [])
     
+    console.log(listafilmes)
+
     return(
         <Container>
-            {listafilmes.map((f) => <Filme capa = {f.posterURL}/>)}
+            {listafilmes.map((f) => 
+            <Link to={`/horarios/${f.id}`}>
+                <Filme capa = {f.posterURL}/>
+            </Link>
+            )}
         </Container>
     )
 
