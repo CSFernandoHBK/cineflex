@@ -15,13 +15,11 @@ export default function AreaFilmes() {
         promessa.catch((erro) => (console.log(erro.response.data)));
     }, [])
     
-    console.log(listafilmes)
-
     return(
         <Container>
-            {listafilmes.map((f) => 
+            {listafilmes.map((f, index) => 
             <Link to={`/horarios/${f.id}`}>
-                <Filme capa = {f.posterURL}/>
+                <Filme capa = {f.posterURL} key={index}/>
             </Link>
             )}
         </Container>
@@ -31,8 +29,10 @@ export default function AreaFilmes() {
 
 const Container = styled.div`
     display: flex;
+    justify-content: space-evenly;
     flex-wrap: wrap;
-    width: 800px;
+    width: 90%;
+    max-width: 600px;
 
     p{
         width: 100%;

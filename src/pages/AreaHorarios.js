@@ -22,11 +22,11 @@ export default function AreaHorarios(props) {
 
     return(
         <Container>
-            {horarios.days.map((dia) => 
-            <div>
+            {horarios.days.map((dia, index) => 
+            <div key={index}>
                 <p>{dia.weekday} - {dia.date}</p>
-                {dia.showtimes.map((s) =>
-                    <Link to={`/`}>
+                {dia.showtimes.map((s, index) =>
+                    <Link to={`/assentos/${s.id}`} key={index}>
                         <button>
                             {s.name}
                         </button>

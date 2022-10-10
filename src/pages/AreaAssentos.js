@@ -3,34 +3,47 @@ import { useEffect } from "react"
 import axios from "axios"
 import react from "react"
 
-export default function AreaAssentos() {
+export default function AreaAssentos(props) {
 
+    const {sessaoId} = props;
     const [listaAssentos, setlistaAssentos] = react.useState([]);
+    const [assentosSelecionados, setassentosSelecionados] = react.useState([])
 
     useEffect(() => {
-        const promessa = axios.get("https://mock-api.driven.com.br/api/v5/cineflex/showtimes/2/seats");
+        const promessa = axios.get(`https://mock-api.driven.com.br/api/v5/cineflex/showtimes/${sessaoId}/seats`);
         promessa.then((resposta) => (setlistaAssentos(resposta.data.seats)));
         promessa.catch((erro) => (console.log(erro.response.data)));
     }
         , [])
 
-    console.log(listaAssentos);
+    console.log(listaAssentos)
+
+    if(listaAssentos === []){
+        return(
+            <div>Carregando</div>
+        )
+    }
 
     return (
         <>
             <Container>
-                {listaAssentos.map((a) => <Esfera>{a.name}</Esfera>)}
+                {listaAssentos.map((a, index) => 
+                <Esfera 
+                key={index} 
+                estaDisponivel={a.isAvailable}>
+                    {a.name}
+                </Esfera>)}
                 <Legenda>
                     <div>
-                        <Esfera/>
+                        <EsferaSelecionado/>
                         <p>Selecionado</p>
                     </div>
                     <div>
-                        <Esfera/>
+                        <Esfera estaDisponivel={true}/>
                         <p>Disponível</p>
                     </div>
                     <div>
-                        <Esfera/>
+                        <Esfera estaDisponivel={false}/>
                         <p>Indisponível</p>
                     </div>
                 </Legenda>
@@ -55,14 +68,13 @@ const Esfera = styled.div`
     height: 26px;
     width: 26px;
     border-radius: 50%;
-    border: 1px solid #808F9D;
-    background: #C3CFD9;
+    border: 1px solid ${(props) => (props.estaDisponivel ? "#7B8B99" : "#F7C52B")};
+    background: ${(props) => (props.estaDisponivel ? "#C3CFD9" : "#FBE192")};
     font-weight: 400;
     font-size: 11px;
     line-height: 13px;
     margin: 0px 4px 10px;
 `
-
 const Legenda = styled.div`
     display: flex;
     justify-content: space-around;
@@ -87,4 +99,8 @@ const Legenda = styled.div`
         letter-spacing: -0.013em;
         color: #4E5A65;
     }
+`
+const EsferaSelecionado = styled(Esfera)`
+    background: #8DD7CF;
+    border: 1px solid #1AAE9E;
 `

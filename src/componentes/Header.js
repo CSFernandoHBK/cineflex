@@ -4,7 +4,7 @@ export default function Header() {
 
     return(
         <Topo>
-            <p>CINEFLEX</p>
+            <h1>CINEFLEX</h1>
         </Topo>
     )
 
@@ -20,7 +20,7 @@ const Topo = styled.div`
     position: fixed;
     top: 0px;
 
-    p{
+    h1{
         font-family: 'Roboto', sans-serif;
         font-weight: 400;
         font-size: 34px;
