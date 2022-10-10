@@ -2,12 +2,12 @@ import styled from "styled-components"
 import { useEffect } from "react"
 import axios from "axios"
 import react from "react"
+import Assento from "./Assento";
 
 export default function AreaAssentos(props) {
 
-    const {sessaoId} = props;
+    const {sessaoId, assentosSelecionados, setassentosSelecionados, idsAssentosSelecionados, setidsAssentosSelecionados} = props;
     const [listaAssentos, setlistaAssentos] = react.useState([]);
-    const [assentosSelecionados, setassentosSelecionados] = react.useState([])
 
     useEffect(() => {
         const promessa = axios.get(`https://mock-api.driven.com.br/api/v5/cineflex/showtimes/${sessaoId}/seats`);
@@ -15,8 +15,6 @@ export default function AreaAssentos(props) {
         promessa.catch((erro) => (console.log(erro.response.data)));
     }
         , [])
-
-    console.log(listaAssentos)
 
     if(listaAssentos === []){
         return(
@@ -27,12 +25,17 @@ export default function AreaAssentos(props) {
     return (
         <>
             <Container>
-                {listaAssentos.map((a, index) => 
-                <Esfera 
-                key={index} 
-                estaDisponivel={a.isAvailable}>
-                    {a.name}
-                </Esfera>)}
+                {listaAssentos.map((a, index) =>
+                <Assento isAvailable={a.isAvailable} 
+                name={a.name}
+                id={a.id}
+                assentosSelecionados={assentosSelecionados}
+                setassentosSelecionados={setassentosSelecionados}
+                idsAssentosSelecionados={idsAssentosSelecionados}
+                setidsAssentosSelecionados={setidsAssentosSelecionados}
+                key={index}
+                /> 
+                )}
                 <Legenda>
                     <div>
                         <EsferaSelecionado/>
@@ -60,7 +63,7 @@ const Container = styled.div`
     margin: 0px 25px 0px;
     flex-wrap: wrap;
 `
-const Esfera = styled.div`
+const Esfera = styled.button`
     font-family: 'Roboto', sans-serif;
     display: flex;
     justify-content: center;
@@ -101,6 +104,17 @@ const Legenda = styled.div`
     }
 `
 const EsferaSelecionado = styled(Esfera)`
+    font-family: 'Roboto', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 26px;
+    width: 26px;
+    border-radius: 50%;
     background: #8DD7CF;
     border: 1px solid #1AAE9E;
+    font-weight: 400;
+    font-size: 11px;
+    line-height: 13px;
+    margin: 0px 4px 10px;
 `

@@ -1,6 +1,7 @@
 import styled from "styled-components"
 import Header from "../componentes/Header"
 import TextoSuperior from "../componentes/TextoSuperior"
+import { Link } from "react-router-dom"
 
 export default function PaginaSucesso() {
     return (
@@ -17,7 +18,9 @@ export default function PaginaSucesso() {
                 <p>Nome: João da Silva Sauro</p>
                 <p>CPF: 123.456.789-10</p>
             </AlinhadoEsquerda>
-            <button>Voltar pra Home</button>
+            <Link to={"/"}>
+                <button>Voltar pra Home</button>
+            </Link>
         </Container>
     )
 }

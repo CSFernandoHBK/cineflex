@@ -1,17 +1,26 @@
+import react from "react"
 import styled from "styled-components"
 
-export default function AreaFormulario() {
+export default function AreaFormulario(props) {
+
+    const {nome, setnome, cpf, setcpf} = props;
 
     return (
         <Container>
             <form>
                 <div>
                     <label htmlFor="nome">Nome do comprador:</label>
-                    <input id="nome" type="text" placeholder="Digite seu CPF..."/>
+                    <input id="nome" type="text" 
+                    placeholder="Digite seu nome..."
+                    value={nome}
+                    onChange={(e) => setnome(e.target.value)}/>
                 </div>
                 <div>
                     <label htmlFor="cpf">CPF do comprador:</label>
-                    <input id="cpf" type="number" placeholder="Digite seu nome..."/>
+                    <input id="cpf" type="number" 
+                    placeholder="Digite seu CPF..."
+                    value={cpf}
+                    onChange={(e) => setcpf(e.target.value)}/>
                 </div>
             </form>
         </Container>
