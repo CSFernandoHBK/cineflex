@@ -31,8 +31,8 @@ export default function PaginaHorarios() {
         <Container>
             <Header/>
             <TextoSuperior texto={"Selecione o horário:"}/>
-            <AreaHorarios filmeId={filmeId} horarios={horarios} setHorarios={setHorarios}/>
-            <Footer title={horarios.title} posterURL={horarios.posterURL} />
+            <AreaHorarios horarios={horarios}/>
+            <Footer title={horarios.title} posterURL={horarios.posterURL} infodofilme={undefined}/>
         </Container>
     )
 }

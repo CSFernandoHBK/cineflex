@@ -2,14 +2,14 @@ import axios from "axios"
 import react from "react"
 import { Link, useParams } from "react-router-dom"
 import styled from "styled-components"
-import Footer from "../componentes/Footer"
 import Header from "../componentes/Header"
 import TextoSuperior from "../componentes/TextoSuperior"
 import AreaAssentos from "./AreaAssentos"
 import AreaFormulario from "./AreaFormulario"
+import FooterAssentos from "./FooterAssentos"
 
 export default function PaginaAssentos(props) {
-    const{setobjetoSucesso} = props;
+    const { setobjetoSucesso } = props;
 
     const params = useParams();
     const sessaoId = params.sessaoId;
@@ -18,13 +18,12 @@ export default function PaginaAssentos(props) {
     const [idsAssentosSelecionados, setidsAssentosSelecionados] = react.useState([]);
     const [nome, setnome] = react.useState("");
     const [cpf, setcpf] = react.useState("");
-    const [infodofilme, setinfodofilme] = react.useState([]);
+    const [infodofilme, setinfodofilme] = react.useState(undefined);
 
-    function enviarPost(){
-        const objeto = {ids: idsAssentosSelecionados, name: nome, cpf: cpf};
+    function enviarPost() {
+        const objeto = { ids: idsAssentosSelecionados, name: nome, cpf: cpf };
         const promise = axios.post("https://mock-api.driven.com.br/api/v5/cineflex/seats/book-many", objeto);
-        promise.then((resposta) => {console.log(resposta.data)})
-        promise.catch((resposta)=>(console.log(resposta)))
+        promise.catch((resposta) => (console.log(resposta)))
         const objetoSus = {
             title: infodofilme.movie.title,
             data: infodofilme.day.date,
@@ -41,15 +40,22 @@ export default function PaginaAssentos(props) {
             <Header />
             <TextoSuperior texto={"Selecione o(s) assento(s)"} />
             <AreaAssentos sessaoId={sessaoId} assentosSelecionados={assentosSelecionados}
-            setassentosSelecionados={setassentosSelecionados}
-            idsAssentosSelecionados={idsAssentosSelecionados}
-            setidsAssentosSelecionados={setidsAssentosSelecionados}
-            setinfodofilme={setinfodofilme}/>
-            <AreaFormulario nome={nome} setnome={setnome} cpf={cpf} setcpf={setcpf}/>
+                setassentosSelecionados={setassentosSelecionados}
+                idsAssentosSelecionados={idsAssentosSelecionados}
+                setidsAssentosSelecionados={setidsAssentosSelecionados}
+                setinfodofilme={setinfodofilme} />
+            <AreaFormulario nome={nome} setnome={setnome} cpf={cpf} setcpf={setcpf} />
             <Link to={`/sucesso`}>
                 <Botao onClick={() => enviarPost()}>Reservar assento(s)</Botao>
             </Link>
-            <Footer infodofilme={infodofilme}/>
+            {infodofilme === undefined ?
+                <div>Carregando...</div> :
+                <FooterAssentos
+                    title={infodofilme.movie.title}
+                    imagem={infodofilme.movie.posterURL}
+                    dia={infodofilme.day.weekday}
+                    hora={infodofilme.name} />
+            }
         </Container>
     )
 }
@@ -59,6 +65,7 @@ const Container = styled.div`
     flex-direction:column;
     justify-content: center;
     align-items:center;
+    
 `
 
 const Botao = styled.button`
@@ -67,6 +74,7 @@ const Botao = styled.button`
     background: #E8833A;
     border-radius: 3px;
     font-family: 'Roboto', sans-serif;
+    text-decoration: none;
     font-style: normal;
     font-weight: 400;
     font-size: 18px;

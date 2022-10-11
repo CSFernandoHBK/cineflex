@@ -2,7 +2,7 @@ import styled from "styled-components"
 import { Link } from "react-router-dom";
 
 export default function AreaHorarios(props) {
-    const { filmeId, horarios, setHorarios } = props;
+    const { horarios } = props;
 
     if (horarios === undefined) {
         return (
@@ -34,6 +34,7 @@ const Container = styled.div`
     align-items:flex-start;
     width: 85%;
     max-width: 410px;
+    padding-bottom: 120px;
 
     div{
         margin-bottom: 10px;

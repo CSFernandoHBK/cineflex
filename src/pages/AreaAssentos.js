@@ -113,7 +113,7 @@ const EsferaSelecionado = styled(Esfera)`
     width: 26px;
     border-radius: 50%;
     background: #8DD7CF;
-    border: 1px solid #1AAE9E;
+    border: 1px solid red;
     font-weight: 400;
     font-size: 11px;
     line-height: 13px;

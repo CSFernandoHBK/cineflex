@@ -1,13 +1,15 @@
 import styled from "styled-components"
 
-export default function Footer(props) {
-
-    const { title, posterURL} = props;
+export default function FooterAssentos(props) {
+    const {title, imagem, dia, hora} = props;
 
     return (
         <Container>
-            <img src={posterURL} />
-            <p>{title}</p>
+            <img src={imagem} />
+            <Texto>
+                <p>{title}</p>
+                <p>{dia} - {hora}</p>
+            </Texto>
         </Container>
     )
 }
@@ -29,7 +31,8 @@ const Container = styled.div`
         height: 72px;
         margin-right: 25px;
     }
-
+`
+const Texto = styled.div`
     p{
         font-family: 'Roboto', sans-serif;
         font-weight: 400;

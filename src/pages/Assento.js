@@ -44,8 +44,8 @@ const Esfera = styled.div`
     height: 26px;
     width: 26px;
     border-radius: 50%;
-    border: 1px solid ${(props) => (props.isAvailable ? (props.clicado ? "#1AAE9E" : "#7B8B99") : "#F7C52B")};
-    background: ${(props) => (props.isAvailable ? (props.clicado ? "blue" : "#C3CFD9") : "#FBE192")};
+    border: 1px solid ${(props) => (props.isAvailable ? (props.clicado ? "red" : "#7B8B99") : "#F7C52B")};
+    background: ${(props) => (props.isAvailable ? (props.clicado ? "#8DD7CF" : "#C3CFD9") : "#FBE192")};
     font-weight: 400;
     font-size: 11px;
     line-height: 13px;

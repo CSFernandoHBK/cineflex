@@ -6,9 +6,7 @@ import { Link } from "react-router-dom"
 export default function PaginaSucesso(props) {
     const objetoSucesso = props.objetoSucesso;
     const{assentos, cpf, data, hora, nome, title} = objetoSucesso;
-
-    console.log(assentos);
-
+    
     return (
         <Container>
             <Header />
