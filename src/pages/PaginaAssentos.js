@@ -1,3 +1,4 @@
+import axios from "axios"
 import react from "react"
 import { Link, useParams } from "react-router-dom"
 import styled from "styled-components"
@@ -7,7 +8,9 @@ import TextoSuperior from "../componentes/TextoSuperior"
 import AreaAssentos from "./AreaAssentos"
 import AreaFormulario from "./AreaFormulario"
 
-export default function PaginaAssentos() {
+export default function PaginaAssentos(props) {
+    const{setobjetoSucesso} = props;
+
     const params = useParams();
     const sessaoId = params.sessaoId;
 
@@ -15,13 +18,22 @@ export default function PaginaAssentos() {
     const [idsAssentosSelecionados, setidsAssentosSelecionados] = react.useState([]);
     const [nome, setnome] = react.useState("");
     const [cpf, setcpf] = react.useState("");
-
-    console.log(idsAssentosSelecionados);
+    const [infodofilme, setinfodofilme] = react.useState([]);
 
     function enviarPost(){
-        // const arrayNumerosAssentos = assentosSelecionados.map((a) => ())
-        const objeto = {ids: 123, name: {nome}, cpf: {cpf}};
-        return(null)
+        const objeto = {ids: idsAssentosSelecionados, name: nome, cpf: cpf};
+        const promise = axios.post("https://mock-api.driven.com.br/api/v5/cineflex/seats/book-many", objeto);
+        promise.then((resposta) => {console.log(resposta.data)})
+        promise.catch((resposta)=>(console.log(resposta)))
+        const objetoSus = {
+            title: infodofilme.movie.title,
+            data: infodofilme.day.date,
+            hora: infodofilme.name,
+            assentos: assentosSelecionados,
+            nome: nome,
+            cpf: cpf
+        }
+        setobjetoSucesso(objetoSus);
     }
 
     return (
@@ -31,15 +43,15 @@ export default function PaginaAssentos() {
             <AreaAssentos sessaoId={sessaoId} assentosSelecionados={assentosSelecionados}
             setassentosSelecionados={setassentosSelecionados}
             idsAssentosSelecionados={idsAssentosSelecionados}
-            setidsAssentosSelecionados={setidsAssentosSelecionados}/>
+            setidsAssentosSelecionados={setidsAssentosSelecionados}
+            setinfodofilme={setinfodofilme}/>
             <AreaFormulario nome={nome} setnome={setnome} cpf={cpf} setcpf={setcpf}/>
             <Link to={`/sucesso`}>
                 <Botao onClick={() => enviarPost()}>Reservar assento(s)</Botao>
             </Link>
-            <Footer />
+            <Footer infodofilme={infodofilme}/>
         </Container>
     )
-
 }
 
 const Container = styled.div`

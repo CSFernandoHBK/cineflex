@@ -6,12 +6,13 @@ import Assento from "./Assento";
 
 export default function AreaAssentos(props) {
 
-    const {sessaoId, assentosSelecionados, setassentosSelecionados, idsAssentosSelecionados, setidsAssentosSelecionados} = props;
+    const {sessaoId, assentosSelecionados, setassentosSelecionados, idsAssentosSelecionados, setidsAssentosSelecionados, setinfodofilme} = props;
     const [listaAssentos, setlistaAssentos] = react.useState([]);
 
     useEffect(() => {
         const promessa = axios.get(`https://mock-api.driven.com.br/api/v5/cineflex/showtimes/${sessaoId}/seats`);
         promessa.then((resposta) => (setlistaAssentos(resposta.data.seats)));
+        promessa.then((resposta) => (setinfodofilme(resposta.data)));
         promessa.catch((erro) => (console.log(erro.response.data)));
     }
         , [])

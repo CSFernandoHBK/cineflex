@@ -17,7 +17,7 @@ export default function AreaFormulario(props) {
                 </div>
                 <div>
                     <label htmlFor="cpf">CPF do comprador:</label>
-                    <input id="cpf" type="number" 
+                    <input id="cpf" type="text" 
                     placeholder="Digite seu CPF..."
                     value={cpf}
                     onChange={(e) => setcpf(e.target.value)}/>

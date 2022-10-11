@@ -3,20 +3,25 @@ import Header from "../componentes/Header"
 import TextoSuperior from "../componentes/TextoSuperior"
 import { Link } from "react-router-dom"
 
-export default function PaginaSucesso() {
+export default function PaginaSucesso(props) {
+    const objetoSucesso = props.objetoSucesso;
+    const{assentos, cpf, data, hora, nome, title} = objetoSucesso;
+
+    console.log(assentos);
+
     return (
         <Container>
             <Header />
             <TextoSuperior texto={"Pedido feito com sucesso!"} />
             <AlinhadoEsquerda>
                 <h2>Filme e sessão</h2>
-                <p>Enola Holmes</p>
-                <p>24/06/2021 15:00</p>
+                <p>{title}</p>
+                <p>{data} - {hora}</p>
                 <h2>Ingressos</h2>
-                <p>Assento 15</p>
+                {assentos.map((a) => <p>Assento {a}</p>)}
                 <h2>Comprador</h2>
-                <p>Nome: João da Silva Sauro</p>
-                <p>CPF: 123.456.789-10</p>
+                <p>Nome: {nome}</p>
+                <p>CPF: {cpf}</p>
             </AlinhadoEsquerda>
             <Link to={"/"}>
                 <button>Voltar pra Home</button>

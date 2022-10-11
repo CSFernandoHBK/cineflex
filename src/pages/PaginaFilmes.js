@@ -2,7 +2,6 @@ import styled from "styled-components"
 import AreaFilmes from "./AreaFilmes"
 import Header from "../componentes/Header"
 import TextoSuperior from "../componentes/TextoSuperior"
-import { Link } from "react-router-dom"
 
 export default function PaginaFilmes() {
     return(

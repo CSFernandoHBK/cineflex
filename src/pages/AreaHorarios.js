@@ -1,47 +1,39 @@
 import styled from "styled-components"
-import { useEffect } from "react"
-import axios from "axios"
-import react from "react"
 import { Link } from "react-router-dom";
 
 export default function AreaHorarios(props) {
-    const {filmeId} = props;
-    const [horarios, setHorarios] = react.useState();
+    const { filmeId, horarios, setHorarios } = props;
 
-    useEffect(() => {
-        const promessa = axios.get(`https://mock-api.driven.com.br/api/v5/cineflex/movies/${filmeId}/showtimes`);
-        promessa.then((resposta) => (setHorarios(resposta.data)));
-        promessa.catch((erro) => (console.log(erro.response.data)));
-    }, [])
-
-    if(horarios === undefined){
-        return(
+    if (horarios === undefined) {
+        return (
             <div>Carregando</div>
         )
     }
 
-    return(
+    return (
         <Container>
-            {horarios.days.map((dia, index) => 
-            <div key={index}>
-                <p>{dia.weekday} - {dia.date}</p>
-                {dia.showtimes.map((s, index) =>
-                    <Link to={`/assentos/${s.id}`} key={index}>
-                        <button>
-                            {s.name}
-                        </button>
-                    </Link> 
-                )}
-            </div>           
+            {horarios.days.map((dia, index) =>
+                <div key={index}>
+                    <p>{dia.weekday} - {dia.date}</p>
+                    {dia.showtimes.map((s, index) =>
+                        <Link to={`/assentos/${s.id}`} key={index}>
+                            <button>
+                                {s.name}
+                            </button>
+                        </Link>
+                    )}
+                </div>
             )}
         </Container>
-    )    
+    )
 }
 
 const Container = styled.div`
     display: flex;
     flex-direction:column;
-    align-items:center;
+    align-items:flex-start;
+    width: 85%;
+    max-width: 410px;
 
     div{
         margin-bottom: 10px;
